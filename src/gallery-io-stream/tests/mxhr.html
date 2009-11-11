@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>YUI Multipart XmlHttpRequest</title>
+</head>
+
+<body class="yui-skin-sam">
+<h1>YUI io HTTP Methods Tests</h1>
+
+<script type="text/javascript" src="../../../../yui3/build/yui/yui.js"></script>
+<script type="text/javascript">
+(function() {
+    YUI({
+        base: "../../../../yui3/build/",
+        logExclude: {
+            attribute: true,
+            dom: true,
+            node: true,
+            event: true,
+            base: true,
+            widget: true,
+            selector: true,
+            io:true
+        },
+        useConsole: true,
+        combine: false,
+        filter: 'debug',
+        patterns: {
+            'gallery-': {
+                base: "../../../build/"
+            }
+        }
+        }).use("test", "console", "base", "io-base", "gallery-io-stream", function(Y) {
+        var console = new Y.Console().render();
+        var stream_uri = 'http://localhost/chat/twitter/mxhrpoll?session=' + Math.random();
+        var GET = new Y.Test.Case({
+            name: 'HTTP GET',
+
+            'testGET': function() {
+            	var t = this;
+            	this.handler = function() {
+					Y.Assert.areSame(200, t.status);
+            	};
+
+				Y.io(stream_uri, {
+                    on: { 
+                        success: function(i, o, a) {
+							t.status = o.status;
+							t.resume(t.handler);
+                        },
+                        failure: function(i, o, a) {
+                            alert(Y.io._streaming);
+                            alert("Pity da fool:\n" + i + "\n" + o);
+                        }
+					}
+				});
+
+				this.wait(null, 1000);
+            },
+
+            'testGETWithData': function() {
+            	var t = this, cb;
+            	this.handler = function() {
+            		Y.Assert.areSame('hello=world&foo=bar', t.response);
+            	};
+            	cb = {
+					on: { success: function(id, o, a) {
+							t.response = o.responseText;
+							t.resume(t.handler);
+						}
+					}
+            	};
+				Y.io(stream_uri, cb);
+				this.wait(null, 1000);
+            }
+        });
+
+	Y.Test.Runner.add(GET);
+	Y.Test.Runner.run();
+});
+})();
+</script>
+</body>
+</html>
