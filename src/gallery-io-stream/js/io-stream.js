@@ -5,15 +5,8 @@
  */
 
 /**
- * Provides a subscribable event named &quot;konami&quot;.
+ * Provides a widget for streaming multipart XmlHttpRequest data
  *
- * @event konami
- * @for YUI
- * @param type {String} 'konami' * @param fn {Function} the callback function
- * @param id {String|Node|etc} the element to bind (typically document) * @param o {Object} optional context object
- * @param args 0..n additional arguments that should be provided 
- * to the listener.
- * @return {Event.Handle} the detach handle 
 */
 
 var STREAM = 'stream',
@@ -23,17 +16,6 @@ var STREAM = 'stream',
     isString = Y.Lang.isString,
     isNumber = Y.Lang.isNumber,
     isObject = Y.Lang.isObject,
-
-   /**
-    * @description Object that stores timeout values for any transaction with
-    * a defined "timeout" configuration property.
-    *
-    * @property _timeout
-    * @private
-    * @static
-    * @type object
-    */
-    _timeout = {},
 
     // Window reference
     w = Y.config.win;
