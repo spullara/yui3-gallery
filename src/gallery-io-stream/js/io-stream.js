@@ -95,6 +95,8 @@ Y.extend( Y.IOStream, Y.Base, {
                     throw new Error("Server is not sending multipart, use a different io module");
                 }
                 this.set(BOUNDARY, '--' + contentType.split('"')[1]);
+                // Cut the boundary and the newline
+                this.currentLength = this.get(BOUNDARY).length + 1;
             }
             this._handleResponse();
         }
@@ -145,21 +147,20 @@ Y.extend( Y.IOStream, Y.Base, {
         this.currentLength = len;
 
         var openChunk = this.openChunk + data;
-
         var start_flag = 0;
         var end_flag   = 0;
         while ( end_flag > -1 ) {
             end_flag = openChunk.indexOf( boundary );
             /* Got a segment? */
             if ( end_flag >= 0 ) {
-                var segment = openChunk.substring(start_flag, end_flag);
+                var segment = openChunk.substring(start_flag, end_flag - 1);
                 this._handleCompletePacket(segment);
-                openChunk  = openChunk.substring(end_flag + boundary.length);
-                start_flag = end_flag + 1;
+                openChunk  = openChunk.substring(end_flag + boundary.length+1);
             }
         }
         this.openChunk = openChunk;
     }
+
 });
 
 Y.mix(Y.io, {
