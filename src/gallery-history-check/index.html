@@ -35,15 +35,16 @@
       "http://www.drudgereport.com",
       "http://www.espn.com"
     ]);
-    for (var i in v) {
-      document.write("<a href='" + v[i] + "'>" + v[i] + "</a><br>");
-    }
-    document.write(Y.historyCheck(["http://www.yahoo.com", "http://mail.yahoo.com", "http://finance.yahoo.com"], true) ? "Yahoo" : "No Yahoo");
-    document.write("<br>");
-    document.write(Y.historyCheck(["http://www.orkut.com"], true) ? "Orkut" : "No Orkut");
-    document.write("<br>");
-    document.write(Y.historyCheck(["http://www.google.com", "http://mail.google.com"], true) ? "Google" : "No Google");
-    document.write("<br>");
+	    var body = Y.one("body");
+	    for (var i =0, l=v.length; i < l; i++) {
+	      body.append("<a href='" + v[i] + "'>" + v[i] + "</a><br>");
+	    }
+	    body.append(Y.historyCheck(["http://www.yahoo.com", "http://mail.yahoo.com", "http://finance.yahoo.com"], true) ? "Yahoo" : "No Yahoo");
+	    body.append("<br>");
+	    body.append(Y.historyCheck(["http://www.orkut.com"], true) ? "Orkut" : "No Orkut");
+	    body.append("<br>");
+	    body.append(Y.historyCheck(["http://www.google.com", "http://mail.google.com"], true) ? "Google" : "No Google");
+	    body.append("<br>");
   });
 </script>
 </body>
