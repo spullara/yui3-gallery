@@ -1,3 +1,5 @@
+YUI.add('gallery-history-check', function(Y) {
+
 /*
  * Copyright 2009 Sam Pullara
  * This source code is licensed to you under the BSD license
@@ -20,11 +22,13 @@ YUI().add('gallery-history-check', function(Y) {
     var body = Y.one("body");
     if (!body) { return null; }
     // Make sure the visited and normal link color differ
-    var visitedColor = "rgb(255, 255, 255)", linkColor = "rgb(0, 0, 0)";
-    // Set the style of the links so that we can distinguish visited links
+    var visitedColor = "rgb(255, 255, 255)";
+    var linkColor = "rgb(0, 0, 0)";
     // Create a div to hold the test links
-    var node = Y.Node.create('<div id="vla" style="display:none;"><style>#vla>.vl:visited{color:' + visitedColor + ';}#vla>.vl:link{color:' + linkColor + ';}</style></div>');
+    var node = Y.Node.create('<div id="vla" style="display:none;"></div>');
+    // Set the style of the links so that we can distinguish visited links
     // Try to ensure that we don't change anything else on the page
+    node.append("<style>#vla>.vl:visited{color:" + visitedColor + ";}#vla>.vl:link{color:" + linkColor + ";}</style>");
     body.append(node);
     // Create a link prototype to test
     var link = Y.Node.create('<a class="vl">&nbsp;</a>');
@@ -57,3 +61,6 @@ YUI().add('gallery-history-check', function(Y) {
   }
   Y.historyCheck = visited;
 }, '0.0.1', {requires:["node"]});
+
+
+}, '@VERSION@' ,{requires:['node']});
