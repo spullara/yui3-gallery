@@ -21,13 +21,31 @@ YUI().add('gallery-history-check', function(Y) {
     if (!body) { return null; }
     // Make sure the visited and normal link color differ
     var visitedColor = "rgb(255, 255, 255)", linkColor = "rgb(0, 0, 0)";
+    // Custom class name that won't interfere with the page
+    var className = Y.guid();
     // Set the style of the links so that we can distinguish visited links
     // Create a div to hold the test links
-    var node = Y.Node.create('<div id="vla" style="display:none;"><style>#vla>.vl:visited{color:' + visitedColor + ';}#vla>.vl:link{color:' + linkColor + ';}</style></div>');
+    var node = Y.Node.create('<div style="display:none;"></div>');
+    var css = '.' + className  + ':visited{color:' + visitedColor + ';} .' + className + ':link{color:' + linkColor + ';}';
+    try {
+	    var style = document.createElement("style");
+	    style.type = "text/css";
+	    if (style.styleSheet) {
+		    node.appendChild(style);
+		    body.append(node);
+		    style.styleSheet.cssText = css;
+	    } else {
+		    style.innerHTML = css;
+		    node.appendChild(style);
+		    body.append(node);
+     	}
+    } catch (e) {
+	    node.append('<style>' + css + '</style>');
+	    body.append(node);
+    }
     // Try to ensure that we don't change anything else on the page
-    body.append(node);
     // Create a link prototype to test
-    var link = Y.Node.create('<a class="vl">&nbsp;</a>');
+    var link = Y.Node.create('<a class="' + className + '">' + url + '</a>');
     // The resulting subset of urls that have been visited
     var list = [];
     // Examine each of the urls provided
