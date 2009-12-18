@@ -1,0 +1,50 @@
+<html>
+<head>
+  <title>Browser History Discovery</title>
+  <script src="http://yui.yahooapis.com/3.0.0/build/yui/yui-min.js"></script>
+  <script type="text/javascript" src="js/history-check.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+  YUI().use('gallery-history-check', function(Y) {
+    var v = Y.historyCheck([
+      "http://m.www.yahoo.com",
+      "http://login.yahoo.com",
+      "http://mail.yahoo.com",
+      "http://mail.live.com",
+      "http://www.facebook.com/home.php",
+      "http://www.myspace.com",
+      "http://www.twitter.com",
+      "http://www.brizzly.com",
+      "http://search.twitter.com",
+      "http://www.google.com",
+      "http://www.yahoo.com",
+      "http://my.yahoo.com",
+      "http://finance.yahoo.com",
+      "http://news.yahoo.com",
+      "http://news.google.com",
+      "http://mail.yahoo.com",
+      "http://search.yahoo.com",
+      "http://www.bing.com",
+      "http://www.orkut.com",
+      "http://www.friendster.com",
+      "http://sports.yahoo.com",
+      "http://sports.yahoo.com/fantasy",
+      "http://tv.yahoo.com",
+      "http://www.cnn.com",
+      "http://www.drudgereport.com",
+      "http://www.espn.com"
+    ]);
+    for (var i in v) {
+      document.write("<a href='" + v[i] + "'>" + v[i] + "</a><br>");
+    }
+    document.write(Y.historyCheck(["http://www.yahoo.com", "http://mail.yahoo.com", "http://finance.yahoo.com"], true) ? "Yahoo" : "No Yahoo");
+    document.write("<br>");
+    document.write(Y.historyCheck(["http://www.orkut.com"], true) ? "Orkut" : "No Orkut");
+    document.write("<br>");
+    document.write(Y.historyCheck(["http://www.google.com", "http://mail.google.com"], true) ? "Google" : "No Google");
+    document.write("<br>");
+  });
+</script>
+</body>
+</html>

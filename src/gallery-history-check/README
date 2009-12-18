@@ -1,0 +1,20 @@
+/*
+ * Copyright 2009 Sam Pullara
+ * This source code is licensed to you under the BSD license
+ * http://developer.yahoo.com/yui/3/license.html
+ * Tested under FF 3.5, Safari 4, Chrome 4
+ */
+
+/**
+ * Check to see if the user's browser history contains links.
+ *
+ * @param urls The array of links you want to check.
+ * @param check If false or empty return the subset of links in the history,
+ *              if true then return true immediately on match else false.
+ *
+ */
+
+This module can be used for good, e.g. making the user experience better and for evil, e.g.
+invading someone's privacy. Please use this module only for good.
+
+Sam
