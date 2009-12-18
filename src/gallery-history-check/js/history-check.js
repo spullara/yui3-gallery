@@ -45,7 +45,7 @@ YUI().add('gallery-history-check', function(Y) {
     }
     // Try to ensure that we don't change anything else on the page
     // Create a link prototype to test
-    var link = Y.Node.create('<a class="' + className + '">' + url + '</a>');
+    var link = Y.Node.create('<a class="' + className + '">&nbsp;</a>');
     // The resulting subset of urls that have been visited
     var list = [];
     // Examine each of the urls provided
