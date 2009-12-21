@@ -105,4 +105,6 @@ Y.Node.prototype.scrollIntoView = function()
 			ancestor = ancestor.offsetParent;
 		}
 	}
+
+	return this;
 }
