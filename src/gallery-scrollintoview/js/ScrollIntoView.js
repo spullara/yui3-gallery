@@ -13,7 +13,7 @@ Y.Node.prototype.scrollIntoView = function()
 	var ancestor = Y.Node.getDOMNode(this.get('offsetParent'));
 	if (!ancestor)
 	{
-		return;
+		return this;
 	}
 
 	var r =
@@ -49,7 +49,7 @@ Y.Node.prototype.scrollIntoView = function()
 			}
 			else if (hit_top)
 			{
-				return;
+				return this;
 			}
 
 			r.move(ancestor.offsetLeft - ancestor.scrollLeft, ancestor.offsetTop - ancestor.scrollTop);
