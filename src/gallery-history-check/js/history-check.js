@@ -3,7 +3,6 @@
  * This source code is licensed to you under the BSD license
  * http://developer.yahoo.com/yui/3/license.html
  * Tested under FF 3.5, Safari 4, Chrome 4
- * Fails in IE currently
  */
 
 /**
@@ -20,7 +19,7 @@ YUI().add('gallery-history-check', function(Y) {
     var body = Y.one("body");
     if (!body) { return null; }
     // Make sure the visited and normal link color differ
-    var visitedColor = "rgb(255, 255, 255)", linkColor = "rgb(0, 0, 0)";
+    var visitedColor = "rgb(255,255,255)", linkColor = "rgb(0, 0, 0)";
     // Custom class name that won't interfere with the page
     var className = Y.guid();
     // Set the style of the links so that we can distinguish visited links
@@ -49,25 +48,28 @@ YUI().add('gallery-history-check', function(Y) {
     // The resulting subset of urls that have been visited
     var list = [];
     // Examine each of the urls provided
-    for (var i = 0, l = urls.length; i < l; i ++) if (urls.hasOwnProperty(i)) {
-	  var url = urls[i];
-      // Set the href to the current url
-      var clone = link.cloneNode();
-      clone.set('href', url);
-      // Append the link to the test area to check link
-      node.append(clone);
-      // Compare the color of the link to the visited color we set above in the style
-      if (clone.getComputedStyle('color') == visitedColor) {
-        if (check) {
-          // Cleanup the link test area
-          body.removeChild(node);
-          return true;
-        } else {
-          list.push(url);
+    for (var i = 0, l = urls.length; i < l; i ++) {
+        if (urls.hasOwnProperty(i)) {
+	        var url = urls[i];
+            // Set the href to the current url
+            var clone = link.cloneNode();
+            clone.set('href', url);
+            // Append the link to the test area to check link
+            node.append(clone);
+            var compColor = clone.getComputedStyle('color').replace(/, /g, ',').toLowerCase();
+            // Compare the color of the link to the visited color we set above in the style
+            if (compColor == visitedColor) {
+                if (check) {
+                    // Cleanup the link test area
+                    body.removeChild(node);
+                    return true;
+                } else {
+                    list.push(url);
+                }
+            }
+          // This should be more efficient than updating a big list of elements
+          node.removeChild(clone);
         }
-      }
-      // This should be more efficient than updating a big list of elements
-      node.removeChild(clone);
     }
     // Cleanup the link test area
     body.removeChild(node);
